@@ -1,29 +1,20 @@
-import argparse
 import logging
 
-from credit_models import kmv
+from worker.task_executor import task_executor
 
 logging.basicConfig(level=logging.INFO)
 
-if __name__ == "__main__":
-
-    # TODO: Give the user the option to select a model
+"""if __name__ == "__main__":
 
     parser = argparse.ArgumentParser("Credit Risk Models")
-    parser.add_argument("enterprise_value", help="Enterprise value", type=float)
-    parser.add_argument("short_term_debt", help="Short term debt", type=float)
-    parser.add_argument("long_term_debt", help="Long term debt", type=float)
-    parser.add_argument("mu", help="Expected annual growth rate", type=float)
-    parser.add_argument("sigma", help="Expected annual volatility", type=float)
+    parser.add_argument("bucket", help="S3 Bucket Name", type=str)
+    parser.add_argument("key", help="S3 Key", type=str)
 
     args = parser.parse_args()
 
-    edf = kmv.kmv(
-        args.enterprise_value,
-        args.short_term_debt,
-        args.long_term_debt,
-        args.mu,
-        args.sigma,
-    )
+    bucket = args.bucket
+    key = args.key
 
-    logging.info(f"Expected default frequency = {edf}")
+    task_executor(bucket, key)"""
+
+task_executor("kubeq-ingest-kmv", "sample-data-kmv-model.csv")
